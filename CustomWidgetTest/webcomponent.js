@@ -52,12 +52,10 @@
         */
 
         get widgetText(){
-            // return this._tagType;
             return this._tagText;
         }
 
         set widgetText(value){
-            //this._tagType = value
             this._tagText = value
         }
 
