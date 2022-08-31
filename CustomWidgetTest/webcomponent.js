@@ -51,6 +51,14 @@
         }
         */
 
+        get widgetText(){
+            return this._tagType;
+        }
+
+        set widgetText(value){
+            this._tagType = value
+        }
+
         redraw(){
             if (this._tagText!=null){
                 if (this._tagContainer) {

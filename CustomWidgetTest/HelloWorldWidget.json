@@ -15,9 +15,21 @@
 			"url": "https://noso2k1.github.io/CustomWidgetTest/webcomponent.js",
 			"integrity": "",
 			"ignoreIntegrity": true
+		},
+		{
+			"kind": "styling",
+			"tag": "com-sap-sample-halloworld1-aps",
+			"url": "https://noso2k1.github.io/CustomWidgetTest/aps_webcomponent.js",
+			"integrity": "",
+			"ignoreIntegrity" : true
 		}
     ],
 	"properties": {
+		"widgetText": {
+			"type": "string",
+			"description": "Text to be displayed",
+			"default": "Hello World"
+		}
 	},
 	"methods": {
 	},
