@@ -11,7 +11,7 @@
 	"webcomponents": [
 		{
 			"kind":"main",
-			"tag": "com-sample-helloworld1",
+			"tag": "com-sap-sample-helloworld1",
 			"url": "https://noso2k1.github.io/CustomWidgetTest/webcomponent.js",
 			"integrity": "",
 			"ignoreIntegrity": true
