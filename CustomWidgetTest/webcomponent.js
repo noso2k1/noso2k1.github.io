@@ -4,14 +4,12 @@
       <h1>Hello world</h1>
     `;
 
-    customElements.define('com-sap-sample-helloworld1', class HelloWorld1 extends HTMLElement {
-
+    class HelloWorld1 extends HTMLElement {
 		constructor() {
 			super(); 
 			let shadowRoot = this.attachShadow({mode: "open"});
 			shadowRoot.appendChild(tmpl.content.cloneNode(true));
 		}
-
 
         //Fired when the widget is added to the html DOM of the page
         connectedCallback(){
@@ -51,8 +49,8 @@
 
         redraw(){
         }
-    
-    
-    });
+    }
+
+    customElements.define('com-sap-sample-helloworld1', HelloWorld1);
         
 })();
