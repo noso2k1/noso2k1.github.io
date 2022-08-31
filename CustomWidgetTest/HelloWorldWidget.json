@@ -18,7 +18,7 @@
 		},
 		{
 			"kind": "styling",
-			"tag": "com-sap-sample-halloworld1-aps",
+			"tag": "com-sap-sample-helloworld1-aps",
 			"url": "https://noso2k1.github.io/CustomWidgetTest/aps_webcomponent.js",
 			"integrity": "",
 			"ignoreIntegrity" : true
