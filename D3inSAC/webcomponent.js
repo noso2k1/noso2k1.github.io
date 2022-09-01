@@ -109,7 +109,7 @@
 
                 let locHeight = this._widgetHeight;
                 // let locWidth = this._widgetWidth;
-                let points = window._d3.range(0,9).map(function(i){
+                this._points = window._d3.range(0,9).map(function(i){
                     let point = {}
                     point.date = 2011 + i;
                     point.value = 50 + Math.random() * 100;
@@ -118,17 +118,17 @@
 
                 // Convert years as integer to date format
                 var timeParse = window._d3.timeParse("%Y")
-                points.forEach(function(d){
+                this._points.forEach(function(d){
                     d.date = timeParse(d.date)
                 })
 
                 // Scale x axis
                 var x = window._d3.scaleTime()
-                    .domain(window._d3.extent(points, d=>d.date))
+                    .domain(window._d3.extent(this._points, d=>d.date))
                     .rangeRound([0, this._widgetWidth]);
 
                 // Scale y axis
-                var valueMax = window._d3.max(points,d=>d.value)
+                var valueMax = window._d3.max(this._points,d=>d.value)
                 var y = window._d3.scaleLinear()
                     .domain([0, valueMax+this._margin.top])
                     .rangeRound([this._widgetHeight, 0]);
@@ -153,7 +153,7 @@
                                 .attr("transform", "translate(" + this._margin.left + "," + this._margin.top + ")");
 
                 focus.append("path")
-                    .datum(points)
+                    .datum(this._points)
                     .attr("fill", "none")
                     .attr("stroke", "steelblue")
                     .attr("stroke-linejoin", "round")
@@ -167,7 +167,7 @@
                 //     .on('end', dragended);
                         
                 var circles = focus.append("g").selectAll('circle')
-                    .data(points)
+                    .data(this._points)
                     .enter()
                     .append('circle')
                     .attr('r', 5.0)
