@@ -1,0 +1,33 @@
+{
+	"eula": "",
+	"vendor": "ASC",
+	"license": "",
+	"id": "com.sap.samples.d3insac",
+	"version": "1.0.0",
+	"name": "D3 Widget",
+	"newInstancePrefix": "D3inSAC",
+	"description": "A template widget with D3",
+	"icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6AAAdTAAAOpgAAA6lwAAF2+XqZnUAAABGUlEQVR4nGJ4++YNQ2V9faa8svJ9DkbGD+wMDHixhJTUk6TMzJpHjx6x/P//nwEggBj6p01LlWdi+r+UgeH/ZSLwJiDWAuLCioo6kAEAAcQgr6LydDlQ4D8J+DgQy0hKvgQZABBADGwMDJ+vkWjAZyDmZ2D4BDIAIICYGBkY/v5lIA1A1f8DEQABxESiXgwAEEAUGwAQQBQbABBAFBsAEEAUGwAQQBQbABBATMB4ZWImURMzkuUAAcQkKCX14x6JBjwEYg5Bwd8gNkAAMSVnZk4sAzKOAvEHIP5IAF8E4jQg9gwPXw4yACCAGO7fu8eUkJbWKCsp+VgAmBuBSRQvlhASeh4WFzft9evXAqCkDBBAjOAMQQEACDAAjeejLjWy3YMAAAAASUVORK5CYII=",
+	"webcomponents": [
+		{
+			"kind": "main",
+			"tag": "sap-d3insac",
+			"url": "https://noso2k1.github.io/D3inSAC/webcomponent.js",
+            "integrity": "",
+            "ignoreIntegrity" : true
+		},
+		{
+			"kind": "styling",
+			"tag": "sap-d3insac-aps",
+			"url": "https://noso2k1.github.io/D3inSAC/aps_webcomponent.js",
+            "integrity": "",
+            "ignoreIntegrity" : true
+		}
+	],
+	"properties": {
+	},
+	"methods": {
+	},
+	"events": {
+	}
+}

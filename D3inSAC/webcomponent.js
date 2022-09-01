@@ -1,0 +1,195 @@
+// https://github.com/davidhstocker/SACWidgetWithD3/blob/master/webcomponents.js
+(function(){
+
+        let d3Script=document.createElement('script');
+        d3Script.src = 'https://d3js.org/d3.v5.min.js'
+        d3Script.async = false;
+        document.head.appendChild(d3Script);
+
+        let tmpl = document.createElement('templace');
+        tmpl.innerHTML = `
+            <style></style>
+        `
+
+        d3Script.onload = () =>
+
+        customElements.define('sap-d3insac', class D3Widget extends HTMLElement {
+
+            disconnectedCallback() {
+                try{
+                    document.head.removeChild(d3Script);
+                }
+                catch{}
+            }
+
+            connectedCallback () {
+                const bcRect = this.getBoundingClientRect();
+                this._widgetHeight = bcRect.height;
+                this._widgetWidth = bcRect.width;
+                if (bcRect.height > bcRect.width){
+                    this._widgetHeight = bcRect.width;
+                    this._needleHeadLength = bcRect.height/2;
+                }else{
+                    this._needleHeadLength = bcRect.width/2;
+                }
+                this._firstConnection = true;
+                setTimeout(()=>{this.redraw();},1000);
+            }
+
+            constructor(){
+                super();
+                this._shadowRoot = this.attachShadow({mode:'open'});
+                this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
+                this._firstConnection = false;
+
+                //Constants
+                if(!window._d3){
+                    window._d3 = d3;
+                }
+                this.style.height="100%";  //Beta workaround
+                this._svgContainer;
+
+                // Several properties that I left out for the moment
+
+                // Adding event handler for click events
+                this.addEventListener("click",event=>{
+                    var event=new Event("onClick");
+                    this.dispatchEvent(event);
+                });
+
+
+            }
+
+            onCustomWidgetBeforeUpdate(oChangedProperties){
+
+            }
+
+            onCustomWidgetAfterUpdate(oChangedProperties){
+                this._widgetHeight = 300;
+                this._widgetHeight = 320;
+                if(this._widgetHeight > this._widgetWidth){
+                    this._widgetHeight = this._widgetWidth;
+                    this._needleHeadLength = this._widgetHeight/2;
+                }else{
+                    this._needleHeadLength = this._widgetWidth/2;
+                }
+                this._needleColorCode='black';
+                this.redraw();
+            }
+
+            onCustomWidgetDestroy(){
+
+            }
+
+            onCustomWidgetResize(width,height){
+                this._widgetHeight = width;
+                this._widgetWidth = height;
+
+                if (this._widgetHeight < this._widgetWidth){
+                    this._widgetWidth = this._widgetHeight;
+                }
+                this._needleHeadLength = this._widgetWidth/2;		
+            }
+
+            redraw(){
+                if(!this._svgContainer){
+                    this._svgContainer = window._d3.select(this._shadowRoot)
+                        .append("svg")
+                        .attr("id","planchart")
+                        .attr("width",this._widgetWidth)
+                        .attr("height",this._widgetHeight);
+                }else{
+                    window._d3.select(this._shadowRoot).selectAll("*").remove();
+                    this._svgContainer = window._d3.select(this._shadowRoot)
+                        .append("svg")
+                        .attr("id","planchart")
+                        .attr("width",this._widgetWidth)
+                        .attr("height",this._widgetHeight);
+                }
+
+                var margin = {top: 20, right: 20, bottom: 30, left: 50};
+
+                let points = window._d3.range(0,9).map(function(i){
+                    let point = {}
+                    point.date = 2011 + i;
+                    point.value = 50 + Math.random() * (this._widgetHeight - 100);
+                    return point
+                })
+
+                // Convert years as integer to date format
+                var timeParse = window._d3.timeParse("%Y")
+                points.forEach(function(d){
+                    d.date = timeParse(d.date)
+                })
+
+                // Scale x axis
+                var x = window._d3.scaleTime()
+                    .domain(window._d3.extent(points, d=>d.date))
+                    .rangeRound([0, this._widgetWidth]);
+
+                // Scale y axis
+                var valueMax = window._d3.max(points,d=>d.value)
+                var y = window._d3.scaleLinear()
+                    .domain([0, valueMax+margin.top])
+                    .rangeRound([this._widgetHeight, 0]);
+
+                var xAxis = window._d3.axisBottom(x),
+                    yAxis = window._d3.axisLeft(y);
+
+                var line = window._d3.line()
+                    .x(d => x(d.date))
+                    .y(d => y(d.value));
+                    
+                this._svgContainer.append('rect')
+                    .attr('class', 'zoom')
+                    .attr('cursor', 'move')
+                    .attr('fill', 'none')
+                    .attr('pointer-events', 'all')
+                    .attr('width', this._widgetWidth)
+                    .attr('height', this._widgetHeight)
+                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+
+                var focus = this._svgContainer.append("g")
+                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                focus.append("path")
+                    .datum(points)
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-linejoin", "round")
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", line);
+
+                // let drag = window._d3.drag()
+                //     .on('start', dragstarted)
+                //     .on('drag', dragged)
+                //     .on('end', dragended);
+                        
+                var circles = focus.append("g").selectAll('circle')
+                    .data(points)
+                    .enter()
+                    .append('circle')
+                    .attr('r', 5.0)
+                    .attr('cx', d => x(d.date))
+                    .attr('cy', d => y(d.value))
+                    .style('cursor', 'pointer')
+                    .style('fill', 'steelblue');
+                    //.call(drag);
+
+                focus.append('g')
+                    .attr('class', 'axis axis--x')
+                    .attr('transform', `translate(0, ${height})`)
+                    .call(xAxis);
+                    
+                focus.append('g')
+                    .attr('class', 'axis axis--y')
+                    .call(yAxis);
+
+            }
+
+
+
+        });
+
+})();
