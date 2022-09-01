@@ -109,12 +109,12 @@
 
                 var margin = {top: 20, right: 20, bottom: 30, left: 50};
 
-                let locHeight = this._widgetHeight;
-                let locWidth = this._widgetWidth;
+                // let locHeight = this._widgetHeight;
+                // let locWidth = this._widgetWidth;
                 let points = window._d3.range(0,9).map(function(i){
                     let point = {}
                     point.date = 2011 + i;
-                    point.value = 50 + Math.random() * (locHeight - 100);
+                    point.value = 50 + Math.random() * 100;
                     return point
                 })
 
