@@ -109,7 +109,7 @@
 
                 var margin = {top: 20, right: 20, bottom: 30, left: 50};
 
-                // let locHeight = this._widgetHeight;
+                let locHeight = this._widgetHeight;
                 // let locWidth = this._widgetWidth;
                 let points = window._d3.range(0,9).map(function(i){
                     let point = {}
@@ -181,7 +181,7 @@
 
                 focus.append('g')
                     .attr('class', 'axis axis--x')
-                    .attr('transform', `translate(0, ${height})`)
+                    .attr('transform', `translate(0, ${locHeight})`)
                     .call(xAxis);
                     
                 focus.append('g')
