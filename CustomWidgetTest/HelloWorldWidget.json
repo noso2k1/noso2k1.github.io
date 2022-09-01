@@ -49,6 +49,11 @@
 			"description": "Set the header tag of the KPY field to H3",
 			"body": "this.headingType = 'h3';"
 		},
+		"getH": {
+			"description": "Get the heading type of the KPI field",
+			"body": "return this.headingType;",
+			"returnType": "string"
+		},
 		"setText": {
 			"description": "Set the text value of the widget",
 			"parameters": [
