@@ -7,7 +7,7 @@
                 <table>
                     <tr>
                         <td>Text</td>
-                        <td><input id="aps_text" type="string"></td>
+                        <td><input id="aps_text" type="string" class="sapMInputBaseInner"></td>
                     </tr>
                 </table>
             </fieldset>
