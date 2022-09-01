@@ -6,7 +6,7 @@
         d3Script.async = false;
         document.head.appendChild(d3Script);
 
-        let tmpl = document.createElement('templace');
+        let tmpl = document.createElement('template');
         tmpl.innerHTML = `
             <style></style>
         `
