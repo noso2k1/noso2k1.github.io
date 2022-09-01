@@ -59,6 +59,14 @@
             this._tagText = value
         }
 
+        get headingType(){
+            return this._tagType;
+        }
+
+        set headingType(value){
+            this._tagType = value;
+        }
+
         redraw(){
             if (this._tagText!=null){
                 if (this._tagContainer) {
