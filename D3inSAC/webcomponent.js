@@ -105,7 +105,7 @@
                         .attr("height",this._widgetHeight);
                 }
 
-                var margin = {top: 20, right: 20, bottom: 30, left: 50};
+                this._margin = {top: 20, right: 20, bottom: 30, left: 50};
 
                 let locHeight = this._widgetHeight;
                 // let locWidth = this._widgetWidth;
@@ -130,7 +130,7 @@
                 // Scale y axis
                 var valueMax = window._d3.max(points,d=>d.value)
                 var y = window._d3.scaleLinear()
-                    .domain([0, valueMax+margin.top])
+                    .domain([0, valueMax+this._margin.top])
                     .rangeRound([this._widgetHeight, 0]);
 
                 var xAxis = window._d3.axisBottom(x),
@@ -147,10 +147,10 @@
                     .attr('pointer-events', 'all')
                     .attr('width', this._widgetWidth)
                     .attr('height', this._widgetHeight)
-                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+                    .attr('transform', 'translate(' + this._margin.left + ',' + this._margin.top + ')')
 
                 var focus = this._svgContainer.append("g")
-                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                                .attr("transform", "translate(" + this._margin.left + "," + this._margin.top + ")");
 
                 focus.append("path")
                     .datum(points)
