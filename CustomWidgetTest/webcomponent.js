@@ -6,13 +6,19 @@
     class HelloWorld1 extends HTMLElement {
 		constructor() {
 			super();
-			//let shadowRoot = this.attachShadow({mode: "open"});
-			//shadowRoot.appendChild(tmpl.content.cloneNode(true));
             this._shadowRoot = this.attachShadow({mode:"open"});
             this._shadowRoot.appendChild(tmpl.content.cloneNode(true))
+            this._firstConnection = true;
             this._tagContainer;
             this._tagType = "h1";
             this._tagText = "Hello World";
+
+            //Adding event handler for click events
+            this.addEventListener("click", event =>{
+                var event = new Event("onClick");
+                this.dispatchEvent(event);
+            });
+
 		}
 
         //Fired when the widget is added to the html DOM of the page
@@ -68,16 +74,14 @@
         }
 
         redraw(){
-            if (this._tagText!=null){
-                if (this._tagContainer) {
-                    this._tagContainer.parentNode.removeChild(this._tagContainer);
-                }
-                var shadow = window.getSelection(this._shadowRoot);
-                this._tagContainer = document.createElement(this._tagType);
-                var theText = document.createTextNode(this._tagText);
-                this._tagContainer.appendChild(theText);
-                this._shadowRoot.appendChild(this._tagContainer);
+            if (this._tagContainer) {
+                this._tagContainer.parentNode.removeChild(this._tagContainer);
             }
+            var shadow = window.getSelection(this._shadowRoot);
+            this._tagContainer = document.createElement(this._tagType);
+            var theText = document.createTextNode(this._tagText);
+            this._tagContainer.appendChild(theText);
+            this._shadowRoot.appendChild(this._tagContainer);
         }
     }
 
