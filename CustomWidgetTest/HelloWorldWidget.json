@@ -29,9 +29,37 @@
 			"type": "string",
 			"description": "Text to be displayed",
 			"default": "Hello World"
+		},
+		"headingType": {
+			"type": "string",
+			"description": "The heading leve of the widget; H1-H3. Default is H1.",
+			"default": "h1"
 		}
 	},
 	"methods": {
+		"setH1": {
+			"description": "Set the header tag of the KPY field to H1",
+			"body": "this.headingType = 'h1';"
+		},
+		"setH2": {
+			"description": "Set the header tag of the KPY field to H2",
+			"body": "this.headingType = 'h2';"
+		},
+		"setH3": {
+			"description": "Set the header tag of the KPY field to H3",
+			"body": "this.headingType = 'h3';"
+		},
+		"setText": {
+			"description": "Set the text value of the widget",
+			"parameters": [
+				{ 
+					"name": "newTextValue",
+					"type": "string",
+					"description": "The displayed angle of the gauge"
+				}
+			],
+			"body": "this.widgetText = newTextValue;"
+		}
 	},
 	"events": {
 	}
