@@ -166,8 +166,8 @@
                     .attr('cx', d => x(d.date))
                     .attr('cy', d => y(d.value))
                     .style('cursor', 'pointer')
-                    .style('fill', 'steelblue');
-                    //.call(drag);
+                    .style('fill', 'steelblue')
+                    .call(drag);
 
                 let locHeight = this._widgetHeight - this._margin.top - this._margin.bottom;
                 focus.append('g')
