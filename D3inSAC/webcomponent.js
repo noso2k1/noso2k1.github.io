@@ -132,7 +132,7 @@
                 // Scale x axis
                 var x = window._d3.scaleTime()
                     .domain(window._d3.extent(this._points, d=>d.date))
-                    .rangeRound([0, this._widgetWidth - this._margin.right]);
+                    .rangeRound([0, this._widgetWidth - this._margin.left]);
 
                 // Scale y axis
                 var valueMax = window._d3.max(this._points,d=>d.value)
@@ -147,14 +147,14 @@
                     .x(d => x(d.date))
                     .y(d => y(d.value));
                     
-                this._svgContainer.append('rect')
-                    .attr('class', 'zoom')
-                    .attr('cursor', 'move')
-                    .attr('fill', 'none')
-                    .attr('pointer-events', 'all')
-                    .attr('width', this._widgetWidth)
-                    .attr('height', this._widgetHeight)
-                    .attr('transform', 'translate(' + this._margin.left + ',' + this._margin.top + ')')
+                // this._svgContainer.append('rect')
+                //     .attr('class', 'zoom')
+                //     .attr('cursor', 'move')
+                //     .attr('fill', 'none')
+                //     .attr('pointer-events', 'all')
+                //     .attr('width', this._widgetWidth - this._margin.left)
+                //     .attr('height', this._widgetHeight - this._margin.top)
+                //     .attr('transform', 'translate(' + this._margin.left + ',' + this._margin.top + ')')
 
                 var focus = this._svgContainer.append("g")
                                 .attr("transform", "translate(" + this._margin.left + "," + this._margin.top + ")");
