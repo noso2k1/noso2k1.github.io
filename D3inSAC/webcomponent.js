@@ -132,7 +132,7 @@
                 // Scale x axis
                 var x = window._d3.scaleTime()
                     .domain(window._d3.extent(this._points, d=>d.date))
-                    .rangeRound([0, this._widgetWidth]);
+                    .rangeRound([0, this._widgetWidth - this._margin.right]);
 
                 // Scale y axis
                 var valueMax = window._d3.max(this._points,d=>d.value)
@@ -194,8 +194,6 @@
                     .call(yAxis);
 
             }
-
-
 
         });
 
