@@ -1,4 +1,11 @@
 // https://github.com/davidhstocker/SACWidgetWithD3/blob/master/webcomponents.js
+
+// Event sequence:
+// - constructor
+// - onCustomWidgetBeforeUpdate
+// - onCustomWidgetAfterUpdate
+// - connectedCallback
+// - onCustomWidgetResize
 (function(){
 
         let d3Script=document.createElement('script');
@@ -37,6 +44,7 @@
                 });
             }            
 
+             //Fired when the widget is removed from the html DOM of the page (e.g. by hide)
             disconnectedCallback() {
                 try{
                     document.head.removeChild(d3Script);
@@ -44,32 +52,37 @@
                 catch{}
             }
 
+             //Fired when the widget is added to the html DOM of the page
             connectedCallback () {
+                // Get the component size as set in the Analytics Application Designer
                 const bcRect = this.getBoundingClientRect();
                 this._widgetHeight = bcRect.height;
                 this._widgetWidth = bcRect.width;
-                if (bcRect.height > bcRect.width){
-                    this._widgetHeight = bcRect.width;
-                }
+                // if (bcRect.height > bcRect.width){
+                //     this._widgetHeight = bcRect.width;
+                // }
                 this._firstConnection = true;
                 setTimeout(()=>{this.redraw();},1000);
             }   
 
+             //When the custom widget is updated, the Custom Widget SDK framework executes this function first
             onCustomWidgetBeforeUpdate(oChangedProperties){
 
             }
 
+            //When the custom widget is updated, the Custom Widget SDK framework executes this function after the update
             onCustomWidgetAfterUpdate(oChangedProperties){
-                this._widgetHeight = 600;
-                this._widgetHeight = 600;
-                if(this._widgetHeight > this._widgetWidth){
-                    this._widgetHeight = this._widgetWidth;
-                }
+                // this._widgetHeight = 600;
+                // this._widgetHeight = 600;
+                // if(this._widgetHeight > this._widgetWidth){
+                //     this._widgetHeight = this._widgetWidth;
+                // }
                 if(this._firstConnection){
                     this.redraw();
                 }
             }
 
+            //When the custom widget is removed from the canvas or the analytic application is closed
             onCustomWidgetDestroy(){
 
             }
@@ -78,9 +91,9 @@
                 this._widgetHeight = width;
                 this._widgetWidth = height;
 
-                if (this._widgetHeight < this._widgetWidth){
-                    this._widgetWidth = this._widgetHeight;
-                }
+                // if (this._widgetHeight < this._widgetWidth){
+                //     this._widgetWidth = this._widgetHeight;
+                // }
             }
 
             redraw(){
