@@ -80,6 +80,7 @@
             onCustomWidgetResize(width,height){
                 this._widgetHeight = width;
                 this._widgetWidth = height;
+                this.redraw();
             }
 
             redraw(){
