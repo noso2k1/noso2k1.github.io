@@ -171,14 +171,14 @@
                     .style('fill', 'steelblue');
                     //.call(drag);
 
-                // focus.append('g')
-                //     .attr('class', 'axis axis--x')
-                //     .attr('transform', `translate(0, ${locHeight})`)
-                //     .call(xAxis);
+                focus.append('g')
+                    .attr('class', 'axis axis--x')
+                    .attr('transform', `translate(0, ${locHeight})`)
+                    .call(xAxis);
                     
-                // focus.append('g')
-                //     .attr('class', 'axis axis--y')
-                //     .call(yAxis);
+                focus.append('g')
+                    .attr('class', 'axis axis--y')
+                    .call(yAxis);
 
             }
 
