@@ -15,27 +15,6 @@
 
         customElements.define('sap-d3insac', class D3Widget extends HTMLElement {
 
-            disconnectedCallback() {
-                try{
-                    document.head.removeChild(d3Script);
-                }
-                catch{}
-            }
-
-            connectedCallback () {
-                const bcRect = this.getBoundingClientRect();
-                this._widgetHeight = bcRect.height;
-                this._widgetWidth = bcRect.width;
-                if (bcRect.height > bcRect.width){
-                    this._widgetHeight = bcRect.width;
-                    this._needleHeadLength = bcRect.height/2;
-                }else{
-                    this._needleHeadLength = bcRect.width/2;
-                }
-                this._firstConnection = true;
-                setTimeout(()=>{this.redraw();},1000);
-            }
-
             constructor(){
                 super();
                 this._shadowRoot = this.attachShadow({mode:'open'});
@@ -56,22 +35,36 @@
                     var event=new Event("onClick");
                     this.dispatchEvent(event);
                 });
+            }            
+
+            disconnectedCallback() {
+                try{
+                    document.head.removeChild(d3Script);
+                }
+                catch{}
             }
+
+            connectedCallback () {
+                const bcRect = this.getBoundingClientRect();
+                this._widgetHeight = bcRect.height;
+                this._widgetWidth = bcRect.width;
+                if (bcRect.height > bcRect.width){
+                    this._widgetHeight = bcRect.width;
+                }
+                // this._firstConnection = true;
+                setTimeout(()=>{this.redraw();},1000);
+            }   
 
             onCustomWidgetBeforeUpdate(oChangedProperties){
 
             }
 
             onCustomWidgetAfterUpdate(oChangedProperties){
-                this._widgetHeight = 300;
-                this._widgetHeight = 320;
+                this._widgetHeight = 600;
+                this._widgetHeight = 600;
                 if(this._widgetHeight > this._widgetWidth){
                     this._widgetHeight = this._widgetWidth;
-                    this._needleHeadLength = this._widgetHeight/2;
-                }else{
-                    this._needleHeadLength = this._widgetWidth/2;
                 }
-                this._needleColorCode='black';
                 this.redraw();
             }
 
@@ -86,7 +79,6 @@
                 if (this._widgetHeight < this._widgetWidth){
                     this._widgetWidth = this._widgetHeight;
                 }
-                this._needleHeadLength = this._widgetWidth/2;		
             }
 
             redraw(){
