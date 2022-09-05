@@ -15,13 +15,6 @@
 			"url": "https://noso2k1.github.io/D3inSAC/webcomponent.js",
             "integrity": "",
             "ignoreIntegrity" : true
-		},
-		{
-			"kind": "styling",
-			"tag": "sap-d3insac-aps",
-			"url": "https://noso2k1.github.io/D3inSAC/aps_webcomponent.js",
-            "integrity": "",
-            "ignoreIntegrity" : true
 		}
 	],
 	"properties": {
