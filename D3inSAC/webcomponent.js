@@ -114,8 +114,6 @@
 
                 this._margin = {top: 20, right: 20, bottom: 30, left: 50};
 
-                let locHeight = this._widgetHeight;
-                // let locWidth = this._widgetWidth;
                 this._points = window._d3.range(0,9).map(function(i){
                     let point = {}
                     point.date = 2011 + i;
@@ -132,13 +130,13 @@
                 // Scale x axis
                 var x = window._d3.scaleTime()
                     .domain(window._d3.extent(this._points, d=>d.date))
-                    .rangeRound([0, this._widgetWidth - this._margin.left]);
+                    .rangeRound([0, this._widgetWidth - this._margin.left - this._margin.right]);
 
                 // Scale y axis
                 var valueMax = window._d3.max(this._points,d=>d.value)
                 var y = window._d3.scaleLinear()
                     .domain([0, valueMax+this._margin.top])
-                    .rangeRound([this._widgetHeight, 0]);
+                    .rangeRound([this._widgetHeight - this._margin.top - this._margin.bottom, 0]);
 
                 var xAxis = window._d3.axisBottom(x),
                     yAxis = window._d3.axisLeft(y);
@@ -184,6 +182,7 @@
                     .style('fill', 'steelblue');
                     //.call(drag);
 
+                let locHeight = this._widgetHeight - this._margin.top - this._margin.bottom;
                 focus.append('g')
                     .attr('class', 'axis axis--x')
                     .attr('transform', `translate(0, ${locHeight})`)
