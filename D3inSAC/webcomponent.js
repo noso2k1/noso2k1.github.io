@@ -51,7 +51,7 @@
                 if (bcRect.height > bcRect.width){
                     this._widgetHeight = bcRect.width;
                 }
-                // this._firstConnection = true;
+                this._firstConnection = true;
                 setTimeout(()=>{this.redraw();},1000);
             }   
 
@@ -65,7 +65,9 @@
                 if(this._widgetHeight > this._widgetWidth){
                     this._widgetHeight = this._widgetWidth;
                 }
-                this.redraw();
+                if(this._firstConnection){
+                    this.redraw();
+                }
             }
 
             onCustomWidgetDestroy(){
