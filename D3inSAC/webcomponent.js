@@ -155,8 +155,8 @@
 
                 let drag = window._d3.drag()
                     .on('start', this.dragstarted)
-                    .on('drag', this.dragged(this))
-                    .on('end', this.dragended);
+                    .on('drag', this.dragged)
+                    .on('end', this.dragended(this));
                         
                 var circles = focus.append("g").selectAll('circle')
                     .data(this._points)
@@ -188,21 +188,21 @@
                     .style('fill','red');
             }
             
-            dragged(that,d) {
+            dragged(d) {
                 //d[0] = x.invert(d3.event.x);
-                d.value = that.y.invert(window._d3.event.y);
+                d.value = y.invert(window._d3.event.y);
                 window._d3.select(this)
                 //    .attr('cx', x(d[0]))
-                    .attr('cy', that.y(d.value))
+                    .attr('cy', y(d.value))
                 focus.select('path').attr('d', that.line);
             }
             
-            dragended(d) {
+            dragended(that,d) {
                 window._d3.select(this)
                     .classed('active', false)
                     .style('fill','steelblue');
                 let coord = new Array
-                window._d3.range(1,points.length+1).forEach(function(entry){
+                window._d3.range(1,that.points.length+1).forEach(function(entry){
                     sel = svg.select("circle:nth-child("+(entry)+")")
                     coord_loc={}
                     coord_loc={'data': sel.attr('cx'),'value':sel.attr('cy')}
