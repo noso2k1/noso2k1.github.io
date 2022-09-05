@@ -197,13 +197,13 @@
             //     focus.select('path').attr('d', that.line);
             // }
             
-            dragended(that,d) {
+            dragended(d,that) {
                 window._d3.select(this)
                     .classed('active', false)
                     .style('fill','steelblue');
                 let coord = new Array
                 window._d3.range(1,that._points.length+1).forEach(function(entry){
-                    sel = svg.select("circle:nth-child("+(entry)+")")
+                    sel = that.focus.select("circle:nth-child("+(entry)+")")
                     coord_loc={}
                     coord_loc={'data': sel.attr('cx'),'value':sel.attr('cy')}
                     coord.push(coord_loc)
