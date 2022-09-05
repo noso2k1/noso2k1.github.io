@@ -14,9 +14,7 @@
         document.head.appendChild(d3Script);
 
         let tmpl = document.createElement('template');
-        tmpl.innerHTML = `
-            <style></style>
-        `
+        tmpl.innerHTML = ``
 
         d3Script.onload = () =>
 
@@ -58,9 +56,6 @@
                 const bcRect = this.getBoundingClientRect();
                 this._widgetHeight = bcRect.height;
                 this._widgetWidth = bcRect.width;
-                // if (bcRect.height > bcRect.width){
-                //     this._widgetHeight = bcRect.width;
-                // }
                 this._firstConnection = true;
                 setTimeout(()=>{this.redraw();},1000);
             }   
@@ -72,11 +67,6 @@
 
             //When the custom widget is updated, the Custom Widget SDK framework executes this function after the update
             onCustomWidgetAfterUpdate(oChangedProperties){
-                // this._widgetHeight = 600;
-                // this._widgetHeight = 600;
-                // if(this._widgetHeight > this._widgetWidth){
-                //     this._widgetHeight = this._widgetWidth;
-                // }
                 if(this._firstConnection){
                     this.redraw();
                 }
@@ -90,10 +80,6 @@
             onCustomWidgetResize(width,height){
                 this._widgetHeight = width;
                 this._widgetWidth = height;
-
-                // if (this._widgetHeight < this._widgetWidth){
-                //     this._widgetWidth = this._widgetHeight;
-                // }
             }
 
             redraw(){
