@@ -155,7 +155,7 @@
 
                 let drag = window._d3.drag()
                     .on('start', this.dragstarted)
-                    .on('drag', this.dragged)
+                    .on('drag', this.dragged(this))
                     .on('end', this.dragended);
                         
                 var circles = focus.append("g").selectAll('circle')
@@ -188,13 +188,13 @@
                     .style('fill','red');
             }
             
-            dragged(d) {
+            dragged(that,d) {
                 //d[0] = x.invert(d3.event.x);
-                d.value = y.invert(window._d3.event.y);
+                d.value = that.y.invert(window._d3.event.y);
                 window._d3.select(this)
                 //    .attr('cx', x(d[0]))
-                    .attr('cy', y(d.value))
-                focus.select('path').attr('d', line);
+                    .attr('cy', that.y(d.value))
+                focus.select('path').attr('d', that.line);
             }
             
             dragended(d) {
