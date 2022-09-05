@@ -153,10 +153,10 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", line);
 
-                // let drag = window._d3.drag()
-                //     .on('start', dragstarted)
-                //     .on('drag', dragged)
-                //     .on('end', dragended);
+                let drag = window._d3.drag()
+                    .on('start', this.dragstarted)
+                    .on('drag', this.dragged)
+                    .on('end', this.dragended);
                         
                 var circles = focus.append("g").selectAll('circle')
                     .data(this._points)
@@ -179,6 +179,36 @@
                     .attr('class', 'axis axis--y')
                     .call(yAxis);
 
+            }
+
+            dragstarted(d) {
+                window._d3.select(this)
+                    .raise()
+                    .classed('active', true)
+                    .style('fill','red');
+            }
+            
+            dragged(d) {
+                //d[0] = x.invert(d3.event.x);
+                d.value = y.invert(window._d3.event.y);
+                window._d3.select(this)
+                //    .attr('cx', x(d[0]))
+                    .attr('cy', y(d.value))
+                focus.select('path').attr('d', line);
+            }
+            
+            dragended(d) {
+                window._d3.select(this)
+                    .classed('active', false)
+                    .style('fill','steelblue');
+                let coord = new Array
+                window._d3.range(1,points.length+1).forEach(function(entry){
+                    sel = svg.select("circle:nth-child("+(entry)+")")
+                    coord_loc={}
+                    coord_loc={'data': sel.attr('cx'),'value':sel.attr('cy')}
+                    coord.push(coord_loc)
+                })
+                console.log(coord)
             }
 
         });
